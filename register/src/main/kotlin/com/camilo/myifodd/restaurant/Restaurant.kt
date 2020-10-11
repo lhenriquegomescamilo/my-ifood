@@ -33,5 +33,6 @@ class Restaurant : PanacheEntityBase {
     @UpdateTimestamp
     var updatedAt: Date? = null
 
-    var dish: Dish? = null
+    @OneToMany
+    var dish: List<Dish>? = null
 }
