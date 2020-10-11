@@ -1,4 +1,4 @@
-package com.camilo.myifodd.restaurant
+package com.camilo.myifood.register.restaurant
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheCompanion
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
