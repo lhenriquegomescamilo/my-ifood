@@ -5,6 +5,7 @@ import javax.ejb.TransactionAttributeType
 import javax.transaction.Transactional
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response
 
 @Path("/restaurants")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,7 +21,10 @@ class RestaurantResource {
     fun findAllPaged() = Restaurant.findAll().range(0, 20).list()
 
     @POST
-    fun create(restaurant: Restaurant) = Restaurant.persist(restaurant);
+    fun create(restaurant: Restaurant): Response? {
+        Restaurant.persist(restaurant);
+        return Response.status(Response.Status.CREATED).build()
+    }
 
     @PUT
     @Path("{id}")

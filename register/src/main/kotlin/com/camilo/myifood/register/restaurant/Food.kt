@@ -6,10 +6,10 @@ import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
-@Table(name = "tb_dish")
-class Dish : PanacheEntityBase {
+@Table(name = "tb_food")
+class Food : PanacheEntityBase {
 
-    companion object : PanacheCompanion<Dish, Long>;
+    companion object : PanacheCompanion<Food, Long>;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

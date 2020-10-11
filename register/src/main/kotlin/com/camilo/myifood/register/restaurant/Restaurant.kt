@@ -32,5 +32,5 @@ class Restaurant : PanacheEntityBase {
     var updatedAt: Date? = null
 
     @OneToMany
-    var dish: List<Dish>? = null
+    var foods: List<Food>? = null
 }
