@@ -74,6 +74,56 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>1.14.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.database-rider/rider-core -->
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-core</artifactId>
+            <version>1.16.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.database-rider/rider-cdi -->
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-cdi</artifactId>
+            <version>1.16.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.database-rider/rider-cdi -->
+        <dependency>
+            <groupId>stax</groupId>
+            <artifactId>stax</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.database-rider/rider-cdi -->
+        <dependency>
+            <groupId>com.approvaltests</groupId>
+            <artifactId>approvaltests</artifactId>
+            <version>4.0.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.database-rider/rider-cdi -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
