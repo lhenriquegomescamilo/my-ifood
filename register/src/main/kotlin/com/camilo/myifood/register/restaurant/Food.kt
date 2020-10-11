@@ -24,4 +24,7 @@ class Food : PanacheEntityBase {
 
     var price: BigDecimal? = null
 
+    @Column(name = "restaurant_id", updatable = false, insertable = false)
+    var idRestaurant: Long? = null
+
 }

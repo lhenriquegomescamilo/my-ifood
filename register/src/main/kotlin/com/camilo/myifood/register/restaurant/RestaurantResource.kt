@@ -1,5 +1,6 @@
 package com.camilo.myifood.register.restaurant
 
+import org.jboss.resteasy.annotations.Body
 import javax.ejb.TransactionAttribute
 import javax.ejb.TransactionAttributeType
 import javax.transaction.Transactional
@@ -29,7 +30,7 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(restaurantId: Long, dto: Restaurant) {
+    fun updateById(@PathParam("id") restaurantId: Long, dto: Restaurant) {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist();
