@@ -1,9 +1,7 @@
 package com.camilo.myifood.register.restaurant
 
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheCompanion
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntity
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntityBase
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheQuery
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*

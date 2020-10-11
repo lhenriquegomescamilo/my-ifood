@@ -1,14 +1,43 @@
 package com.camilo.myifood.register.restaurant
 
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.Produces
+import javax.ejb.TransactionAttribute
+import javax.ejb.TransactionAttributeType
+import javax.transaction.Transactional
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
 @Path("/restaurants")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 class RestaurantResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    fun hello() = "hello"
+    @Path("{id}")
+    fun findById(@PathParam("id") restaurantId: Long) = Restaurant.findById(restaurantId)
+
+    @GET
+    fun findAllPaged() = Restaurant.findAll().range(0, 20).list()
+
+    @POST
+    fun create(restaurant: Restaurant) = Restaurant.persist(restaurant);
+
+    @PUT
+    @Path("{id}")
+    @Transactional
+    fun updateById(restaurantId: Long, dto: Restaurant) {
+        findEntityById(restaurantId)?.let {
+            it.name = dto.name
+            it.persist();
+        }
+    }
+
+    private fun findEntityById(restaurantId: Long): Restaurant? =
+        Restaurant.findById(restaurantId) ?: throw NotFoundException()
+
+    @DELETE
+    @Path("{id}")
+    @Transactional
+    fun deleteById(@PathParam("id") restaurantId: Long) =
+        findEntityById(restaurantId)?.also { Restaurant.deleteById(restaurantId) }
 }
