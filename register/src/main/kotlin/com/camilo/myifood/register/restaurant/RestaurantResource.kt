@@ -1,5 +1,6 @@
 package com.camilo.myifood.register.restaurant
 
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import org.jboss.resteasy.annotations.Body
 import javax.ejb.TransactionAttribute
 import javax.ejb.TransactionAttributeType
@@ -8,6 +9,7 @@ import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
+@Tag(name = "restaurants")
 @Path("/restaurants")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,6 +24,7 @@ class RestaurantResource {
     fun findAllPaged() = Restaurant.findAll().range(0, 20).list()
 
     @POST
+    @Transactional
     fun create(restaurant: Restaurant): Response? {
         Restaurant.persist(restaurant);
         return Response.status(Response.Status.CREATED).build()

@@ -1,10 +1,17 @@
 package com.camilo.myifood.register.restaurant
 
 import io.quarkus.panache.common.Parameters
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
+import javax.transaction.Transactional
 import javax.ws.rs.*
+import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
+
+@Tag(name = "foods")
 @Path("/restaurants/{idRestaurant}/foods")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 class FoodResource {
 
     @GET
@@ -25,8 +32,16 @@ class FoodResource {
         return Food.find("idRestaurant = :idRestaurant", params).list()
     }
 
+    @POST()
+    @Transactional
+    fun createFoodToRestaurant(food: Food): Response? {
+        Food.persist(food)
+        return Response.status(Response.Status.CREATED).build()
+    }
+
     @DELETE
     @Path("{id}")
+    @Transactional
     fun deleteFoodFromRestaurant(
         @PathParam("idRestaurant") idRestaurant: Long,
         @PathParam("id") idFood: Long
@@ -48,6 +63,7 @@ class FoodResource {
 
     @PUT
     @Path("{id}")
+    @Transactional
     fun updateFoodFromRestaurant(
         @PathParam("idRestaurant") idRestaurant: Long,
         @PathParam("id") idFood: Long,
