@@ -33,11 +33,12 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(@PathParam("id") restaurantId: Long, dto: Restaurant) {
+    fun updateById(@PathParam("id") restaurantId: Long, dto: Restaurant): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist();
         }
+        return Response.status(Response.Status.NO_CONTENT).build()
     }
 
     private fun findEntityById(restaurantId: Long): Restaurant? =
