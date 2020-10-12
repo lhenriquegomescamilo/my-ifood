@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.ejb.TransactionAttribute
 import javax.ejb.TransactionAttributeType
 import javax.transaction.Transactional
+import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -27,7 +28,7 @@ class RestaurantResource {
 
     @POST
     @Transactional
-    fun create(restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
+    fun create(@Valid restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
@@ -36,7 +37,7 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(@PathParam("id") restaurantId: Long, dto: CreateOrUpdateRestaurantDTO): Response? {
+    fun updateById(@PathParam("id") restaurantId: Long, dto: @Valid CreateOrUpdateRestaurantDTO): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist();
