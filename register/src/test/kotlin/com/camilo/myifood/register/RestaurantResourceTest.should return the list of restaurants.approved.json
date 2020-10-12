@@ -1,0 +1,16 @@
+[
+  {
+    "cnpj": "10.335.524/0001-97",
+    "foods": [],
+    "id": 1,
+    "name": "New Restaurant",
+    "owner": "id keyclock "
+  },
+  {
+    "cnpj": "93.760.087/0001-86",
+    "foods": [],
+    "id": 2,
+    "name": "New Restaurant 2",
+    "owner": "id keyclock 2 "
+  }
+]

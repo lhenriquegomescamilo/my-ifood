@@ -1,0 +1,9 @@
+TB_RESTAURANT:
+  - ID: 1
+    OWNER: 'id keyclock '
+    NAME: 'New Restaurant'
+    CNPJ: '10.335.524/0001-97'
+  - ID: 2
+    OWNER: 'id keyclock 2 '
+    NAME: 'New Restaurant 2'
+    CNPJ: '93.760.087/0001-86'
