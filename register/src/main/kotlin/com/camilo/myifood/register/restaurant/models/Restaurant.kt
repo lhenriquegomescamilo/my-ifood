@@ -9,28 +9,29 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "tb_restaurant")
-class Restaurant : PanacheEntityBase {
-
-
-    companion object : PanacheCompanion<Restaurant, Long>;
+data class Restaurant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-    var owner: String? = null
+    var id: Long? = null,
+    var owner: String? = null,
 
-    var cnpj: String? = null
+    var cnpj: String? = null,
 
-    var name: String? = null
+    var name: String? = null,
 
     @OneToOne(cascade = [CascadeType.ALL])
-    var location: Location? = null
+    var location: Location? = null,
 
     @CreationTimestamp
-    var createdAt: Date? = null
+    var createdAt: Date? = null,
 
     @UpdateTimestamp
-    var updatedAt: Date? = null
+    var updatedAt: Date? = null,
 
     @OneToMany
     var foods: List<Food>? = null
+) : PanacheEntityBase {
+
+    companion object : PanacheCompanion<Restaurant, Long>;
+
 }

@@ -124,16 +124,16 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct</artifactId>-->
+<!--            <version>${mapstruct.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct-processor</artifactId>-->
+<!--            <version>${mapstruct.version}</version>-->
+<!--        </dependency>-->
 
 
     </dependencies>
@@ -158,17 +158,17 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                    <annotationProcessorPaths>-->
+<!--                        <path>-->
+<!--                            <groupId>org.mapstruct</groupId>-->
+<!--                            <artifactId>mapstruct-processor</artifactId>-->
+<!--                            <version>${mapstruct.version}</version>-->
+<!--                        </path>-->
+<!--                    </annotationProcessorPaths>-->
+<!--                </configuration>-->
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -186,25 +186,25 @@
                 <version>${kotlin.version}</version>
                 <executions>
 
-                    <execution>
-                        <id>kapt</id>
-                        <goals>
-                            <goal>kapt</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>src/main/kotlin</sourceDir>
-                                <sourceDir>src/main/java</sourceDir>
-                            </sourceDirs>
-                            <annotationProcessorPaths>
-                                <annotationProcessorPath>
-                                    <groupId>org.mapstruct</groupId>
-                                    <artifactId>mapstruct-processor</artifactId>
-                                    <version>${mapstruct.version}</version>
-                                </annotationProcessorPath>
-                            </annotationProcessorPaths>
-                        </configuration>
-                    </execution>
+<!--                    <execution>-->
+<!--                        <id>kapt</id>-->
+<!--                        <goals>-->
+<!--                            <goal>kapt</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <sourceDirs>-->
+<!--                                <sourceDir>src/main/kotlin</sourceDir>-->
+<!--                                <sourceDir>src/main/java</sourceDir>-->
+<!--                            </sourceDirs>-->
+<!--                            <annotationProcessorPaths>-->
+<!--                                <annotationProcessorPath>-->
+<!--                                    <groupId>org.mapstruct</groupId>-->
+<!--                                    <artifactId>mapstruct-processor</artifactId>-->
+<!--                                    <version>${mapstruct.version}</version>-->
+<!--                                </annotationProcessorPath>-->
+<!--                            </annotationProcessorPaths>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                     <execution>
                         <id>compile</id>
                         <goals>

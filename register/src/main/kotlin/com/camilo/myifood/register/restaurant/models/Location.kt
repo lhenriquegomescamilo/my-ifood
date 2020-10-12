@@ -5,13 +5,15 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "tb_location")
-class Location : PanacheEntityBase {
+class Location(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null
+): PanacheEntityBase {
 
     companion object : PanacheCompanion<Location, Long>;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-    val latitude: Double? = null
-    val longitude: Double? = null
+
 }

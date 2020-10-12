@@ -1,12 +1,11 @@
 package com.camilo.myifood.register.restaurant.resource
 
 import com.camilo.myifood.register.restaurant.dto.CreateNewRestaurantDTO
-import com.camilo.myifood.register.restaurant.dto.RestaurantMapper
+import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.ejb.TransactionAttribute
 import javax.ejb.TransactionAttributeType
-import javax.inject.Inject
 import javax.transaction.Transactional
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
@@ -17,8 +16,7 @@ import javax.ws.rs.core.Response
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-class RestaurantResource{
-    @Inject lateinit var  restaurantMapper: RestaurantMapper
+class RestaurantResource {
 
     @GET
     @Path("{id}")
@@ -30,7 +28,7 @@ class RestaurantResource{
     @POST
     @Transactional
     fun create(restaurantDto: CreateNewRestaurantDTO): Response? {
-        val restaurant = restaurantMapper.toRestaurant(restaurantDto)
+        val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
     }
