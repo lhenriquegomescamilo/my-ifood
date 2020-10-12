@@ -28,6 +28,15 @@ class RestaurantResourceTest {
         Approvals.verifyJson(result)
     }
 
+    @Test
+    @DataSet(value = ["restaurants.yml"])
+    fun `should return the one of by id`() {
+        given()
+            .`when`().get("/restaurants/1")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .extract().body()
+    }
 
 
 }
