@@ -1,6 +1,6 @@
 package com.camilo.myifood.register
 
-import com.camilo.myifood.register.restaurant.Restaurant
+import com.camilo.myifood.register.restaurant.models.Restaurant
 import com.github.database.rider.cdi.api.DBRider
 import com.github.database.rider.core.api.configuration.DBUnit
 import com.github.database.rider.core.api.configuration.Orthography

@@ -1,5 +1,6 @@
-package com.camilo.myifood.register.restaurant
+package com.camilo.myifood.register.restaurant.resource
 
+import com.camilo.myifood.register.restaurant.models.Food
 import io.quarkus.panache.common.Parameters
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.transaction.Transactional
