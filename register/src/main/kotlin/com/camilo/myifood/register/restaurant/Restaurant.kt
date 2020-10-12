@@ -22,7 +22,7 @@ class Restaurant : PanacheEntityBase {
 
     var name: String? = null
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     var location: Location? = null
 
     @CreationTimestamp
