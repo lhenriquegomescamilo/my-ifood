@@ -1,6 +1,6 @@
 package com.camilo.myifood.register.restaurant.resource
 
-import com.camilo.myifood.register.restaurant.dto.CreateNewRestaurantDTO
+import com.camilo.myifood.register.restaurant.dto.CreateOrUpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
@@ -27,7 +27,7 @@ class RestaurantResource {
 
     @POST
     @Transactional
-    fun create(restaurantDto: CreateNewRestaurantDTO): Response? {
+    fun create(restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
@@ -36,7 +36,7 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(@PathParam("id") restaurantId: Long, dto: Restaurant): Response? {
+    fun updateById(@PathParam("id") restaurantId: Long, dto: CreateOrUpdateRestaurantDTO): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist();

@@ -1,6 +1,6 @@
 package com.camilo.myifood.register.restaurant.dto
 
-class CreateNewRestaurantDTO(
+class CreateOrUpdateRestaurantDTO(
     var owner: String? = null,
 
     var cnpj: String? = null,

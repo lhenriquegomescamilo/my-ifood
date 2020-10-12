@@ -5,7 +5,7 @@ import com.camilo.myifood.register.restaurant.models.Restaurant
 
 class RestaurantConverter {
     companion object {
-        fun toRestaurant(dto: CreateNewRestaurantDTO) = Restaurant(
+        fun toRestaurant(dto: CreateOrUpdateRestaurantDTO) = Restaurant(
             owner = dto.owner,
             cnpj = dto.cnpj,
             name = dto.name,
