@@ -1,5 +1,6 @@
 package com.camilo.myifood.register.restaurant.resource
 
+import com.camilo.myifood.register.restaurant.dto.FoodDTO
 import com.camilo.myifood.register.restaurant.models.Food
 import io.quarkus.panache.common.Parameters
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
@@ -28,9 +29,17 @@ class FoodResource {
     @GET
     fun findByAllFromRestaurant(
         @PathParam("idRestaurant") idRestaurant: Long
-    ): List<Food> {
+    ): List<FoodDTO> {
         val params = Parameters.with("idRestaurant", idRestaurant)
-        return Food.find("idRestaurant = :idRestaurant", params).list()
+        return Food.find("idRestaurant = :idRestaurant", params).list().asSequence().map {
+            FoodDTO(
+                id = it.id,
+                name = it.name,
+                description = it.description,
+                price = it.price,
+                idRestaurant = it.idRestaurant
+            )
+        }.toList();
     }
 
     @POST()
@@ -47,13 +56,13 @@ class FoodResource {
         @PathParam("idRestaurant") idRestaurant: Long,
         @PathParam("id") idFood: Long
     ): Response? {
-        findFoodFromRestaurant(idFood, idRestaurant)
+        findFoodFromRestaurantOrThrowNotFound(idFood, idRestaurant)
         val params = Parameters.with("idFood", idFood).and("idRestaurant", idRestaurant)
         Food.delete("idRestaurant = :idRestaurant", params)
         return Response.status(Response.Status.NO_CONTENT).build()
     }
 
-    fun findFoodFromRestaurant(idFood: Long, idRestaurant: Long?): Food {
+    fun findFoodFromRestaurantOrThrowNotFound(idFood: Long, idRestaurant: Long?): Food {
         val firstResult: Food? = Food.find(
             "id = :idFood and idRestaurant = :idRestaurant",
             Parameters.with("idFood", idFood).and("idRestaurant", idRestaurant)
@@ -68,9 +77,9 @@ class FoodResource {
     fun updateFoodFromRestaurant(
         @PathParam("idRestaurant") idRestaurant: Long,
         @PathParam("id") idFood: Long,
-        food: Food
+        food: FoodDTO
     ): Response? {
-        val foodFromDatabase = findFoodFromRestaurant(idFood, idRestaurant)
+        val foodFromDatabase = findFoodFromRestaurantOrThrowNotFound(idFood, idRestaurant)
         foodFromDatabase.name = food.name
         foodFromDatabase.persist()
         return Response.status(Response.Status.NO_CONTENT).build()
