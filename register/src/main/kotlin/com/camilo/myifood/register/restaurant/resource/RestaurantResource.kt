@@ -40,7 +40,7 @@ class RestaurantResource {
     fun updateById(@PathParam("id") restaurantId: Long, dto: @Valid CreateOrUpdateRestaurantDTO): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
-            it.persist();
+            it.persist()
         }
         return Response.status(Response.Status.NO_CONTENT).build()
     }
