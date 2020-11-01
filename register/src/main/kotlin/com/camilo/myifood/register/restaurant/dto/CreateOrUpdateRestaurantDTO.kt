@@ -5,21 +5,23 @@ import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.hibernate.validator.constraints.br.CNPJ
 import java.util.Objects.nonNull
 import javax.validation.ConstraintValidatorContext
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
 
 class CreateOrUpdateRestaurantDTO(
 
-    @NotEmpty
+    @field:NotEmpty
+    @field:NotBlank
     var owner: String? = null,
 
-    @NotEmpty
-    @CNPJ
+    @field:NotEmpty
+    @field:CNPJ
     var cnpj: String? = null,
 
-    @NotEmpty
-    @Size(min = 2, max = 30)
+    @field:NotEmpty
+    @field:Size(min = 2, max = 30)
     var name: String? = null,
 
     var location: LocationDTO? = null
