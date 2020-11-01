@@ -2,6 +2,7 @@ package com.camilo.myifood.register.restaurant.resource
 
 import com.camilo.myifood.register.restaurant.dto.CreateOrUpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
+import com.camilo.myifood.register.restaurant.infra.ConstraintViolationImpl
 import com.camilo.myifood.register.restaurant.infra.ConstraintViolationResponse
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -48,7 +49,7 @@ class RestaurantResource {
     @APIResponse(
             responseCode = "400",
             content = [
-                (Content(mediaType = "application/json", schema = Schema( allOf = [ConstraintViolationResponse::class])))
+                (Content(mediaType = "application/json", schema = Schema( allOf = [ConstraintViolationImpl::class])))
             ]
     )
     fun create(@Valid restaurantDto: CreateOrUpdateRestaurantDTO): Response? {

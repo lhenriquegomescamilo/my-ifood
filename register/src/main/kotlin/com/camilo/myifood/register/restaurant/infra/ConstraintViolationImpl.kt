@@ -3,7 +3,7 @@ package com.camilo.myifood.register.restaurant.infra
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import javax.validation.ConstraintViolation
 
-class ConstraintViolationImpl private constructor(
+data class ConstraintViolationImpl (
 
         @Schema(description = "Path of attribute, example: startDate, endDate or person.address.number", required = false)
         var attribute: String? = "",
