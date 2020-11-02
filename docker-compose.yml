@@ -9,6 +9,15 @@ services:
     ports:
       - "5432:5432"
 
+  postgres_marketplace:
+    container_name: postgres_marketplace
+    image: postgres:12.4
+    environment:
+      POSTGRES_USER: marketplace
+      POSTGRES_PASSWORD: marketplace
+    ports:
+      - "5433:5432"
+
   keycloack_app:
     container_name: keycloack_app
     image: jboss/keycloak:9.0.2
