@@ -3,25 +3,36 @@ package com.camilo.myifood.register.restaurant.resource
 import com.camilo.myifood.register.restaurant.dto.CreateOrUpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
 import com.camilo.myifood.register.restaurant.models.Restaurant
-import org.eclipse.microprofile.openapi.annotations.media.Content
-import org.eclipse.microprofile.openapi.annotations.media.Schema
+import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
+import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
-import javax.ejb.TransactionAttribute
-import javax.ejb.TransactionAttributeType
+import javax.annotation.security.RolesAllowed
+
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-import kotlin.reflect.KClass
 
 @Tag(name = "restaurants")
 @Path("/restaurants")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+@RolesAllowed("owner")
+@SecurityScheme(
+    securitySchemeName = "ifood-oauth",
+    type = SecuritySchemeType.OAUTH2,
+    flows = OAuthFlows(
+        password = OAuthFlow(
+            tokenUrl = "http://localhost:8180/auth/realms/ifood/protocol/openid-connect/token"
+        )
+    )
+)
 class RestaurantResource {
 
     @GET
