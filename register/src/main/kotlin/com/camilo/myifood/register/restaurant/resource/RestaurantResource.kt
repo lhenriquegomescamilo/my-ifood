@@ -2,16 +2,14 @@ package com.camilo.myifood.register.restaurant.resource
 
 import com.camilo.myifood.register.restaurant.dto.CreateOrUpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
-import com.camilo.myifood.register.restaurant.infra.ConstraintViolationImpl
-import com.camilo.myifood.register.restaurant.infra.ConstraintViolationResponse
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.ejb.TransactionAttribute
 import javax.ejb.TransactionAttributeType
-import javax.transaction.Status
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
@@ -46,13 +44,13 @@ class RestaurantResource {
 
     @POST
     @Transactional
-    @APIResponse(
-        responseCode = "400",
-        content = [
-            (Content(mediaType = "application/json", schema = Schema(allOf = [ConstraintViolationImpl::class])))
+    @APIResponses(
+        value = [
+            APIResponse(responseCode = "201", description = "Create with successful"),
+            APIResponse(responseCode = "400", description = "When something is wrong, like a CNPJ alread exists")
         ]
     )
-    fun create(@Valid restaurantDto:  CreateOrUpdateRestaurantDTO): Response? {
+    fun create(@Valid restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
