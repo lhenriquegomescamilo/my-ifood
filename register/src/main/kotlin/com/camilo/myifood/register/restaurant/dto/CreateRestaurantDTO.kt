@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
 @ValidDTO
-data class CreateOrUpdateRestaurantDTO(
+data class CreateRestaurantDTO(
 
     @field:NotEmpty
     @field:NotBlank

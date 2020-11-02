@@ -1,17 +1,22 @@
 package com.camilo.myifood.register
 
+import com.camilo.myifood.register.restaurant.dto.UpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.models.Restaurant
+import com.camilo.myifood.util.TokenUtils
 import com.github.database.rider.cdi.api.DBRider
 import com.github.database.rider.core.api.configuration.DBUnit
 import com.github.database.rider.core.api.configuration.Orthography
 import com.github.database.rider.core.api.dataset.DataSet
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.junit.QuarkusTest
-import io.restassured.RestAssured.given
+import io.restassured.RestAssured
 import io.restassured.http.ContentType
+import io.restassured.http.Header
 import org.apache.http.HttpStatus
 import org.approvaltests.Approvals
 import org.junit.Assert
+import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @DBRider
@@ -19,6 +24,17 @@ import org.junit.jupiter.api.Test
 @QuarkusTest
 @QuarkusTestResource(RegisterTestLifecycleManager::class)
 class RestaurantResourceTest {
+
+    fun generateToken() = TokenUtils
+        .generateTokenString("/JWTProprietarioClaims.json", null)
+
+
+
+    private fun given() = RestAssured.given()
+        .contentType(ContentType.JSON)
+        .header(Header("Authorization", "Bearer ${generateToken()}"))
+
+
 
     @Test
     @DataSet(value = ["restaurants.yml"])
@@ -45,12 +61,11 @@ class RestaurantResourceTest {
     @Test
     @DataSet(value = ["restaurants.yml"])
     fun `should update by id`() {
-        val dto = Restaurant()
+        val dto = UpdateRestaurantDTO()
         dto.name = "The new name"
 
         val restaurantId = 1L
         given()
-            .contentType(ContentType.JSON)
             .with().pathParam("id", restaurantId).body(dto)
             .`when`().put("/restaurants/{id}")
             .then()
@@ -59,6 +74,5 @@ class RestaurantResourceTest {
         val findById = Restaurant.findById(restaurantId)
         Assert.assertEquals(dto.name, findById?.name)
     }
-
 
 }

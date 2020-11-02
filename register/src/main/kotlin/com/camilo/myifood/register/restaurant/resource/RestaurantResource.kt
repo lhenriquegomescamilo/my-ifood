@@ -1,14 +1,14 @@
 package com.camilo.myifood.register.restaurant.resource
 
-import com.camilo.myifood.register.restaurant.dto.CreateOrUpdateRestaurantDTO
+import com.camilo.myifood.register.restaurant.dto.CreateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
+import com.camilo.myifood.register.restaurant.dto.UpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows
-import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import javax.annotation.security.RolesAllowed
@@ -45,7 +45,7 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(@PathParam("id") restaurantId: Long, @Valid dto: CreateOrUpdateRestaurantDTO): Response? {
+    fun updateById(@PathParam("id") restaurantId: Long, @Valid dto: UpdateRestaurantDTO): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist()
@@ -61,7 +61,7 @@ class RestaurantResource {
             APIResponse(responseCode = "400", description = "When something is wrong, like a CNPJ alread exists")
         ]
     )
-    fun create(@Valid restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
+    fun create(@Valid restaurantDto: CreateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
