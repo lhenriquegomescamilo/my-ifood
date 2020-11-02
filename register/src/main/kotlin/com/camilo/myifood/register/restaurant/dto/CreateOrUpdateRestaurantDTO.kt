@@ -1,6 +1,7 @@
 package com.camilo.myifood.register.restaurant.dto
 
 import com.camilo.myifood.register.restaurant.infra.DTO
+import com.camilo.myifood.register.restaurant.infra.ValidDTO
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.hibernate.validator.constraints.br.CNPJ
 import java.util.Objects.nonNull
@@ -9,8 +10,8 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
-
-class CreateOrUpdateRestaurantDTO(
+@ValidDTO
+data class CreateOrUpdateRestaurantDTO(
 
     @field:NotEmpty
     @field:NotBlank
@@ -32,9 +33,9 @@ class CreateOrUpdateRestaurantDTO(
             contraintValidationContext.buildConstraintViolationWithTemplate("CNPJ already exists")
                 .addPropertyNode("cnpj")
                 .addConstraintViolation()
-            true
-        } else {
             false
+        } else {
+            true
         }
     }
 }

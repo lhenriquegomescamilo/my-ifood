@@ -10,25 +10,26 @@ import javax.persistence.*
 @Entity
 @Table(name = "tb_restaurant")
 data class Restaurant(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @field:Id
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var owner: String? = null,
 
+    @field:Column(unique = true)
     var cnpj: String? = null,
 
     var name: String? = null,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @field:OneToOne(cascade = [CascadeType.ALL])
     var location: Location? = null,
 
-    @CreationTimestamp
+    @field:CreationTimestamp
     var createdAt: Date? = null,
 
-    @UpdateTimestamp
+    @field:UpdateTimestamp
     var updatedAt: Date? = null,
 
-    @OneToMany
+    @field:OneToMany
     var foods: List<Food>? = null
 ) : PanacheEntityBase {
 

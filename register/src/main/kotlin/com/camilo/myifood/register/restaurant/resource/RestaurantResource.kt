@@ -36,7 +36,7 @@ class RestaurantResource {
     @PUT
     @Path("{id}")
     @Transactional
-    fun updateById(@PathParam("id") restaurantId: Long, dto: @Valid CreateOrUpdateRestaurantDTO): Response? {
+    fun updateById(@PathParam("id") restaurantId: Long, @Valid dto: CreateOrUpdateRestaurantDTO): Response? {
         findEntityById(restaurantId)?.let {
             it.name = dto.name
             it.persist()
@@ -47,23 +47,23 @@ class RestaurantResource {
     @POST
     @Transactional
     @APIResponse(
-            responseCode = "400",
-            content = [
-                (Content(mediaType = "application/json", schema = Schema( allOf = [ConstraintViolationImpl::class])))
-            ]
+        responseCode = "400",
+        content = [
+            (Content(mediaType = "application/json", schema = Schema(allOf = [ConstraintViolationImpl::class])))
+        ]
     )
-    fun create(@Valid restaurantDto: CreateOrUpdateRestaurantDTO): Response? {
+    fun create(@Valid restaurantDto:  CreateOrUpdateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
         return Response.status(Response.Status.CREATED).build()
     }
 
     private fun findEntityById(restaurantId: Long): Restaurant? =
-            Restaurant.findById(restaurantId) ?: throw NotFoundException()
+        Restaurant.findById(restaurantId) ?: throw NotFoundException()
 
     @DELETE
     @Path("{id}")
     @Transactional
     fun deleteById(@PathParam("id") restaurantId: Long) =
-            findEntityById(restaurantId)?.also { Restaurant.deleteById(restaurantId) }
+        findEntityById(restaurantId)?.also { Restaurant.deleteById(restaurantId) }
 }
