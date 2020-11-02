@@ -8,6 +8,7 @@ services:
       POSTGRES_PASSWORD: register
     ports:
       - "5432:5432"
+
   keycloack_app:
     container_name: keycloack_app
     image: jboss/keycloak:9.0.2
@@ -16,6 +17,7 @@ services:
       KEYCLOAK_PASSWORD: admin
     ports:
     - "8180:8080"
+
   jeager_app:
     container_name: jeager_app
     image: jaegertracing/all-in-one:1.17
@@ -28,3 +30,13 @@ services:
       - "14268:14268"
       - "14250:14250"
       - "9411:9411"
+
+  prometheus_app:
+    container_name: prometheus_app
+    image: prometheus-ifood
+    network_mode: "host"
+
+  grafana_app:
+    container_name: grafana_app
+    image: grafana/grafana:6.5.0
+    network_mode: "host"

@@ -4,6 +4,10 @@ import com.camilo.myifood.register.restaurant.dto.CreateRestaurantDTO
 import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
 import com.camilo.myifood.register.restaurant.dto.UpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.models.Restaurant
+import org.eclipse.microprofile.metrics.annotation.Counted
+import org.eclipse.microprofile.metrics.annotation.Gauge
+import org.eclipse.microprofile.metrics.annotation.SimplyTimed
+import org.eclipse.microprofile.metrics.annotation.Timed
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses
@@ -40,6 +44,9 @@ class RestaurantResource {
     fun findById(@PathParam("id") restaurantId: Long) = Restaurant.findById(restaurantId)
 
     @GET
+    @Counted(name = "Quantity of search restaurant")
+    @SimplyTimed(name = "Time simple of search")
+    @Timed(name = "Time complete of search")
     fun findAllPaged() = Restaurant.findAll().range(0, 20).list()
 
     @PUT
