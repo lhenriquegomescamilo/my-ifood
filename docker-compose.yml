@@ -49,3 +49,12 @@ services:
     container_name: grafana_app
     image: grafana/grafana:6.5.0
     network_mode: "host"
+
+  artemis_app:
+    container_name: artemis_app
+    image: vromero/activemq-artemis:2.11.0
+    network_mode: "host"
+    environment:
+      ARTEMIS_USERNAME: admin
+      ARTEMIS_PASSWORD: admin
+

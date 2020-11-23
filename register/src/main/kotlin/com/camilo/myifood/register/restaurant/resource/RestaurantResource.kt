@@ -5,7 +5,6 @@ import com.camilo.myifood.register.restaurant.dto.RestaurantConverter
 import com.camilo.myifood.register.restaurant.dto.UpdateRestaurantDTO
 import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.metrics.annotation.Counted
-import org.eclipse.microprofile.metrics.annotation.Gauge
 import org.eclipse.microprofile.metrics.annotation.SimplyTimed
 import org.eclipse.microprofile.metrics.annotation.Timed
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
@@ -15,7 +14,11 @@ import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
+import org.eclipse.microprofile.reactive.messaging.Channel
+import org.eclipse.microprofile.reactive.messaging.Emitter
 import javax.annotation.security.RolesAllowed
+import javax.inject.Inject
+import javax.json.bind.JsonbBuilder
 
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -37,8 +40,12 @@ import javax.ws.rs.core.Response
         )
     )
 )
-class RestaurantResource {
+class RestaurantResource(
 
+) {
+
+    @Inject @Channel("restaurants")
+    lateinit var emitter: Emitter<String>
     @GET
     @Path("{id}")
     fun findById(@PathParam("id") restaurantId: Long) = Restaurant.findById(restaurantId)
@@ -71,6 +78,9 @@ class RestaurantResource {
     fun create(@Valid restaurantDto: CreateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
         Restaurant.persist(restaurant)
+        val jsonBuilder = JsonbBuilder.create()
+        val json = jsonBuilder.toJson(restaurant)
+        emitter.send(json)
         return Response.status(Response.Status.CREATED).build()
     }
 
