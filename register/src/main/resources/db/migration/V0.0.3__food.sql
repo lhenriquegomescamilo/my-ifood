@@ -12,10 +12,6 @@ create table tb_food
     price         numeric(19, 2)
 );
 
-alter table tb_food
-    owner to register;
-
-
 -- auto-generated definition
 create table tb_restaurant_tb_food
 (
@@ -28,7 +24,4 @@ create table tb_restaurant_tb_food
         constraint fk_tb_restaurant_tb_food_tb_food
             references tb_food
 );
-
-alter table tb_restaurant_tb_food
-    owner to register;
 

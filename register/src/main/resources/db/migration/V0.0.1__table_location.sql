@@ -8,6 +8,4 @@ create table tb_location
     longitude double precision
 );
 
-alter table tb_location
-    owner to register;
 

@@ -14,6 +14,3 @@ create table tb_restaurant
             references tb_location
 );
 
-alter table tb_restaurant
-    owner to register;
-
