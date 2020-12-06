@@ -7,7 +7,10 @@ import com.camilo.myifood.register.restaurant.models.Restaurant
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.metrics.annotation.SimplyTimed
 import org.eclipse.microprofile.metrics.annotation.Timed
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType
+import org.eclipse.microprofile.openapi.annotations.media.Content
+import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow
@@ -44,8 +47,10 @@ class RestaurantResource(
 
 ) {
 
-    @Inject @Channel("restaurants")
+    @Inject
+    @Channel("restaurants")
     lateinit var emitter: Emitter<String>
+
     @GET
     @Path("{id}")
     fun findById(@PathParam("id") restaurantId: Long) = Restaurant.findById(restaurantId)
@@ -72,8 +77,14 @@ class RestaurantResource(
     @APIResponses(
         value = [
             APIResponse(responseCode = "201", description = "Create with successful"),
-            APIResponse(responseCode = "400", description = "When something is wrong, like a CNPJ alread exists")
-        ]
+            APIResponse(responseCode = "400", description = "When something is wrong, like a CNPJ alread exists"),
+            APIResponse(
+                content = [Content(
+                    schema = Schema(type = SchemaType.OBJECT, implementation = CreateRestaurantDTO::class)
+                )]
+            )
+
+        ],
     )
     fun create(@Valid restaurantDto: CreateRestaurantDTO): Response? {
         val restaurant = RestaurantConverter.toRestaurant(restaurantDto)
